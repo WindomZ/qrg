@@ -13,7 +13,8 @@ type Mode int
 const (
 	ModeTerminal = iota
 	ModeText
-	ModeHTTP
+	ModePNG
+	ModeJPEG
 )
 
 var DefaultQRLevel = qrw.L
@@ -65,6 +66,12 @@ func QRGenerate(r io.Reader, w io.Writer, m Mode, cs ...Config) error {
 		if invert {
 			wrt.Invert()
 		}
+		return wrt.QR(string(data))
+	case ModePNG:
+		wrt := qrw.NewPNGWriter(level, w)
+		return wrt.QR(string(data))
+	case ModeJPEG:
+		wrt := qrw.NewJPEGWriter(level, w)
 		return wrt.QR(string(data))
 	}
 	return nil
