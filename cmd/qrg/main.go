@@ -10,15 +10,26 @@ import (
 	"github.com/WindomZ/qrg"
 )
 
+var version string
+
 func main() {
 	c := qrg.Config{}
 
 	flag.IntVar(&c.Level, "l", 0, `set QR Code quality level: [0~3]`)
 	flag.BoolVar(&c.Invert, "i", false, `reverse QR Code display color`)
 
+	var showVersion bool
+	flag.BoolVar(&showVersion, "v", false, "print version")
+
 	var outputFile string
 	flag.StringVar(&outputFile, "o", "", "output QR Code file: [.png|.jpeg|.text|.?]")
+
 	flag.Parse()
+
+	if showVersion {
+		fmt.Fprintln(os.Stderr, version)
+		os.Exit(0)
+	}
 
 	if outputFile == "" {
 		qrg.QRGenerate(os.Stdin, os.Stdout, qrg.ModeTerminal, c)
