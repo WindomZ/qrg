@@ -8,8 +8,6 @@
 ## Usage
 help:
 ```bash
-qrg -h
-
 Usage of qrg:
   -i    reverse QR Code display color
   -l int
@@ -21,11 +19,19 @@ Usage of qrg:
 from text:
 ```bash
 echo 'hello world!' | qrg
+# or
+echo 'hello world!' | qrg -i -l 3
+# or
+echo 'hello world!' | qrg -o hello.txt
+# or
+echo 'hello world!' | qrg -l 2 -o hello.png
 ```
 
 from file:
 ```bash
-cat 'qr.go' | qrg
+cat LICENSE | qrg -l 1
+# or
+cat LICENSE | qrg -o LICENSE.png
 ```
 
 ## Install
