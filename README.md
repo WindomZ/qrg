@@ -29,9 +29,21 @@ cat 'qr.go' | qrg
 ```
 
 ## Install
+If you have a Golang environment:
 ```bash
 go get -u github.com/WindomZ/qrg/...
 ```
+
+Or download the latest binary [release](https://github.com/WindomZ/qrg/releases)
+
+## Changelog
+See [CHANGELOG.md](https://github.com/WindomZ/qrg/blob/master/CHANGELOG.md#readme)
+
+## Contributing
+Welcome to pull requests, report bugs, suggest ideas and discuss, 
+i would love to hear what you think on [issues page](https://github.com/WindomZ/qrg/issues).
+
+If you like it then you can put a :star: on it.
 
 ## License
 [MIT](https://github.com/WindomZ/qrg/blob/master/LICENSE)

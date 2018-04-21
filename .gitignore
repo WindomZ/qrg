@@ -16,3 +16,8 @@
 *.iml
 out
 gen
+
+bin/
+*.txt
+*.png
+*.jpeg
