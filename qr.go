@@ -8,22 +8,31 @@ import (
 	"github.com/WindomZ/qrw"
 )
 
+// Mode generate QR Code mode
 type Mode int
 
 const (
+	// ModeTerminal print on the terminal
 	ModeTerminal = iota
+	// ModeText output a file with text
 	ModeText
+	// ModePNG output a png file
 	ModePNG
+	// ModeJPEG output a jpeg/jpg file
 	ModeJPEG
 )
 
+// DefaultQRLevel the default level of QR Code
 var DefaultQRLevel = qrw.L
 
 var (
-	ErrNil   = errors.New("input/output should not be nil")
+	// ErrNil nil error
+	ErrNil = errors.New("input/output should not be nil")
+	// ErrEmpty empty input error
 	ErrEmpty = errors.New("input should not be empty")
 )
 
+// QRGenerate generate QR Code
 func QRGenerate(r io.Reader, w io.Writer, m Mode, cs ...Config) error {
 	if r == nil || w == nil {
 		return ErrNil
