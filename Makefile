@@ -1,0 +1,35 @@
+BINARY := qrg
+BINARY_DIR := cmd/qrg
+VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || (git describe --always --long --dirty | tr '\n' '-';date +%Y.%m.%d))
+LDFLAGS = -ldflags "-w -s -X main.version=${VERSION}"
+LDFLAGS_DEV = -ldflags "-X main.version=${VERSION}"
+
+GOX := $(shell command -v gox 2> /dev/null)
+
+.PHONY: all
+
+# Check gox
+gox:
+ifndef GOX
+	$(error "gox is not available. Please install from https://github.com/mitchellh/gox")
+endif
+
+# Build binary release
+release: gox
+	@cd ${BINARY_DIR} && \
+	gox -osarch="darwin/386 darwin/amd64 linux/386 linux/amd64 windows/386 windows/amd64" ${LDFLAGS} -output="../../bin/{{.Dir}}_{{.OS}}_{{.Arch}}"
+
+# Build a development build
+build:
+	@cd ${BINARY_DIR} && \
+	go build ${LDFLAGS_DEV} -o ../../bin/${BINARY}
+
+# Install on your local system
+install: clean
+	@cd ${BINARY_DIR} && \
+	go install ${LDFLAGS}
+
+# Clean build
+clean:
+	@rm -rf bin/*
+	@cd ${BINARY_DIR} && go clean -i
