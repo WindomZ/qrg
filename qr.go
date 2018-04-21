@@ -55,12 +55,6 @@ func QRGenerate(r io.Reader, w io.Writer, m Mode, cs ...Config) error {
 	}
 
 	switch m {
-	case ModeTerminal:
-		wrt := qrw.NewBashWriter(level, w)
-		if invert {
-			wrt.Invert()
-		}
-		return wrt.QR(string(data))
 	case ModeText:
 		wrt := qrw.NewBlockWriter(level, w)
 		if invert {
@@ -73,6 +67,11 @@ func QRGenerate(r io.Reader, w io.Writer, m Mode, cs ...Config) error {
 	case ModeJPEG:
 		wrt := qrw.NewJPEGWriter(level, w)
 		return wrt.QR(string(data))
+	default:
+		wrt := qrw.NewBashWriter(level, w)
+		if invert {
+			wrt.Invert()
+		}
+		return wrt.QR(string(data))
 	}
-	return nil
 }
